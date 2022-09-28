@@ -16,8 +16,8 @@ To create an Ubuntu-VM with VirtualBox, do the following steps:
       4. Version: Ubuntu (64-bit)
    2. Memory size:
       1. Select the amount of RAM from your main PC, that the virtual machine will access. Be sure
-         to remain inside the green bar, to ensure you can continue to work outside of the VM
-         whilst it’s running.
+         to remain inside the green bar, to ensure you can continue to work outside the VM,
+         whilst it is running.
    3. Hard disk:
       1. Select *Create a virtual hard disk now*.
    4. Hard disk file type:
@@ -40,7 +40,7 @@ To create an Ubuntu-VM with VirtualBox, do the following steps:
       5. Choose *Erase disk and install Ubuntu* and click *Install Now*.
       6. Click *Continue*.
       7. Select a location.
-      8. Create your account (e.g., username is *Your name* and password is *admin* as well as
+      8. Create your account (e.g., username is *moodle-dev* and password is *admin* as well as
          select *Log in automatically*).
       9. Click *Restart Now* after installation.
       10. Press *Enter*, when you see the text *Please remove installation medium, then press
@@ -52,9 +52,9 @@ To create an Ubuntu-VM with VirtualBox, do the following steps:
          VirtualBox window for this Ubuntu-VM will have this size).
 
 In addition, it is very helpful for a better performance of the complete VM, to increase the amount
-of processor cores under *Settings -> System -> Processor*.
+of processor cores under *Settings -> System -> Processor* in VirtualBox.
 
-Furthermore, it is useful to apply the following power settings (under *Settings -> Power*),
+Furthermore, it is useful to apply the following power settings (under *Settings -> Power*) in the VM,
 if the VM is used as a server, for a better performance:<br><br>
 <img src="README_images/vm_power_settings.png" alt="VM power settings" />
 
