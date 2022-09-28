@@ -11,12 +11,12 @@ To create an Ubuntu-VM with VirtualBox, do the following steps:
    1. Name and operating system:
       1. Choose a name. 
       2. Choose a machine folder: This is where your virtual machines will be stored, so you can
-         resume working on them whenever you like.
+         resume working on them, whenever you like.
       3. Type: Linux
       4. Version: Ubuntu (64-bit)
    2. Memory size:
       1. Select the amount of RAM from your main PC, that the virtual machine will access. Be sure
-         to remain inside the green bar, to ensure you can continue to work outside the VM,
+         to remain inside the green bar, to ensure, you can continue to work outside the VM,
          whilst it is running.
    3. Hard disk:
       1. Select *Create a virtual hard disk now*.
@@ -55,6 +55,6 @@ In addition, it is very helpful for a better performance of the complete VM, to 
 of processor cores under *Settings -> System -> Processor* in VirtualBox.
 
 Furthermore, it is useful to apply the following power settings (under *Settings -> Power*) in the VM,
-if the VM is used as a server, for a better performance:<br><br>
+since the VM is used as a server, for a better performance:<br><br>
 <img src="README_images/vm_power_settings.png" alt="VM power settings" />
 
