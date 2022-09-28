@@ -56,5 +56,5 @@ of processor cores under *Settings -> System -> Processor*.
 
 Furthermore, it is useful to apply the following power settings (under *Settings -> Power*),
 if the VM is used as a server, for a better performance:<br><br>
-<img src="README_images/vm_power_settings.png" alt="VM power settings" style="margin-left:10%; width:80%" />
+<img src="README_images/vm_power_settings.png" alt="VM power settings" />
 
