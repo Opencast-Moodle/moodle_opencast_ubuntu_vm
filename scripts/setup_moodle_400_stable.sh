@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Note, that this script must be executed from the Setup-Utils directory with:
+# Note, that this script must be executed from the scripts directory with:
 #   sudo sh setup_moodle_400_stable.sh
 
 set -e
