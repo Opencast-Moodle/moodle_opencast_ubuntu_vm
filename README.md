@@ -66,29 +66,29 @@ A Moodle installation must be installed to the document root directory of Apache
 and should not be writeable by the web server user.
 Furthermore, for development it is very helpful, to map this directory to a directory on the host system of the VM.
 To do so, do the following steps:
-1. Create the directory */var/www/html* in the VM, if it does not exist already, with the command:<br>
+1. Create the directory */var/www/html* on the VM, if it does not exist already, with the command:<br>
    ```
    sudo mkdir -p /var/www/html
    ```
-2. Make the Moodle installations not writeable by the web server user by executing the following commands in the VM:<br>
+2. Make the Moodle installations not writeable by the web server user by executing the following commands on the VM:<br>
    ```
    sudo chown -R root /var/www/html
    sudo chmod -R 0755 /var/www/html
    ```
 3. To create the mapping for the Moodle installations directory, a shared folder must be added to the VM. 
    To do so, do the following steps:
-   1. Install some required packages for the installation of the Guest Additions on the VM with the command:
+   1. Install some required packages for the installation of the *Guest Additions* on the VM with the command:
       ```
       sudo apt-get install build-essential
       ```
    2. Select *Devices -> Insert Guest Additions CD image...* from the menu of the window of the VM on the host system.
-   3. After the disk has been inserted, on the VM navigate to the folder */media/&#60;USER&#62;/VBox_GAs_&#60;VERSION&#62;*,
-      whereat *&#60;USER&#62;* is the name of your account on the VM and execute the following command:
+   3. After the disk has been inserted, on the VM navigate to the directory */media/&#60;USER&#62;/VBox_GAs_&#60;VERSION&#62;*,
+      whereat *&#60;USER&#62;* is the name of your account on the VM, and execute the following command:
       ```
       sudo sh ./VBoxLinuxAdditions.run
       ```
    4. Restart the VM after checking, that there were no errors (note, that the resolution of the VM
-      is automatically adjusted to the size of the window of the VM, if the Guest Additions have been installed).
+      is automatically adjusted to the size of the window of the VM, if the *Guest Additions* have been installed).
    5. To access shared/mapped folders, a user must be added to the user group *vboxsf*. To do so,
       run the following command on the VM and restart the VM afterwards, whereat *&#60;USER&#62;* is the name
       of your account on the VM:
@@ -101,7 +101,7 @@ To do so, do the following steps:
    9. Select the folder on the host system, that should be shared/mapped, set it to *read-only* as well as to *permanent*,
       enable *automatic mounting*, leave the folder name as default (*.*) and enter the path */var/www/html* as mount point 
       (the selected folder from the host system will appear now as the folder */var/www/html* on the VM automatically;
-      note, that the shared folder on the host system will contain the Moodle versions for the VM).
+      note, that the shared folder on the host system will contain the Moodle versions for the VM in this guide).
    10. Accept the settings for the VM and start the VM again, to check, whether the mapping works.
 
 Note, that a restart of the VM is required/recommended, when you change the shared folder settings,
@@ -117,31 +117,32 @@ on the VM are not accessible by the host machine or by other computers on the sa
 However, VirtualBox can make the VM available to the host.
 
 To access the web server/a Moodle installation of the VM from the host, the *Host-Only Networking* feature
-of VirtualBox can be used. One can describe the Host-Only Networking feature with:<br>
+of VirtualBox can be used. One can describe the *Host-Only Networking* feature with
+(see https://www.virtualbox.org/manual/ch06.html):<br>
 *The virtual machines can talk to each other and the host as if they were connected through a physical Ethernet switch.
 Furthermore, a physical networking interface need not be present, and the virtual machines cannot talk to
 the world outside the host since they are not connected to a physical networking interface.*
 
-At first, crate a *Host-Only Network* by doing the following steps:
-1. In VirtualBox, select *File -> Host Network Manager...* and click on *Create*. The name should be *vboxnet0*.
-2. Click on *Properties* with this new entry selected.
-3. In the *Adapter* tab, select *Configure Adapter Manually* and use the following settings:<br><br>
-   *IPv4 Address: 192.168.56.1<br>
-   IPv4 Network Mask: 255.255.255.0<br>
-   IPv6 Address: (leaf it empty)<br>
-   IPv6 Prefix Length: 0*<br><br>
-   In the *DHCP Server* tab, make sure, that the *Enable Server* box is checked, and use the following settings:<br><br>
-   *Server Address: 192.168.56.100<br>
-   Server Mask: 255.255.255.0<br>
-   Lower Address Bound: 192.168.56.101<br>
-   Upper Address Bound: 192.168.56.101* (note, that the DHCP server serves only one IP address, namely *192.168.56.101*)<br><br>
-4. Add a *Host-Only Adapter* to the VM by doing the following steps:
-   1. Open the settings of the VM and click on the *Network* tab.
+1. At first, crate a *Host-Only Network* by doing the following steps:
+   1. In VirtualBox, select *File -> Host Network Manager...* and click on *Create*. The name should be *vboxnet0*.
+   2. Click on *Properties* with this new entry selected.
+   3. In the *Adapter* tab, select *Configure Adapter Manually* and use the following settings:<br><br>
+      *IPv4 Address: 192.168.56.1<br>
+      IPv4 Network Mask: 255.255.255.0<br>
+      IPv6 Address: (leaf it empty)<br>
+      IPv6 Prefix Length: 0*<br><br>
+      In the *DHCP Server* tab, make sure, that the *Enable Server* box is checked, and use the following settings:<br><br>
+      *Server Address: 192.168.56.100<br>
+      Server Mask: 255.255.255.0<br>
+      Lower Address Bound: 192.168.56.101<br>
+      Upper Address Bound: 192.168.56.101* (note, that the DHCP server serves only one IP address, namely, *192.168.56.101*)<br><br>
+2. Add a *Host-Only Adapter* to the VM by doing the following steps:
+   1. Open the settings of the VM in VirtualBox and click on the *Network* tab.
    2. Under the *Adapter 2* tab, enter the following settings and accept them afterwards:<br><br>
       *Enable Network Adapter: Checked<br>
       Attached to: Host-only Adapter<br>
-      Name: vboxnet0* (note, that this should be the name of the network you created in the previous steps)<br><br>
-5. You should check, whether the *Host-Only Network* is available (the VM should be running), e.g., with 
+      Name: vboxnet0* (note, that this should be the name of the network, you created in the previous step)<br><br>
+3. You should check, whether the *Host-Only Network* is available (the VM should be running), e.g., with 
    the following command, executed on the host:
    ```
    ping 192.168.56.101
@@ -150,10 +151,10 @@ At first, crate a *Host-Only Network* by doing the following steps:
 ---
 
 ## Cloning the VM
-When you have done all the previous steps, you should have a working Ubuntu VM (with a mapped/shared directory), that is accessible
+When you have done all the previous steps, you should have a working Ubuntu VM (with a mapped/shared folder), that is accessible
 from the host via network. This VM will be a kind of *basic* VM, that is used for every installation of Moodle or Opencast in this guide.
-Therefore, a *Full Clone* of this VM will always be created for this purpose. A *Full Clone* of a VM in VirtualBox is an
-exact copy of the original VM. To create a *Full Clone* of the VM, do the following steps:
+For it, a *Full Clone* of this VM will always be created. A *Full Clone* of a VM in VirtualBox is an
+exact copy of the original VM. To create a *Full Clone* of a VM with VirtualBox, do the following steps:
 1. Right-click on the VM in VirtualBox and select *Clone ...*.
 2. Enter a name of your choice, keep the default path, select *Include all network adapter MAC addresses* for
    *MAC Address Policy* and check *Keep Disk Names* as well as *Keep Hardware UUIDs* for *Additional Options*.
