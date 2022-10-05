@@ -1,9 +1,9 @@
 # moodle_opencast_ubuntu_vm
 This repository contains information about setting up an Ubuntu-VM for Moodle development without or with Opencast
-as well as helper script, to make this process straightforward. In the following guide, VirtualBox is used
+as well as helper scripts, to make this process straightforward. In the following guide, VirtualBox is used
 as virtualization software.
 
-**Note - Under Construction**<br>
+**Note - Under construction**<br>
 This guide contains only the setup of the Ubuntu-VM so far. Other parts will follow as soon as possible.
 
 ---
@@ -72,9 +72,12 @@ To create an Ubuntu-VM with VirtualBox, do the following steps:
 In addition, it is very helpful for a better performance of the complete VM, to increase the amount
 of processor cores under *Settings -> System -> Processor* in VirtualBox.
 
-Furthermore, it is useful to apply the following power settings (under *Settings -> Power*) in the VM,
+Furthermore, it is useful, to apply the following power settings (under *Settings -> Power*) in the VM,
 since the VM is used as a server, for a better performance:<br><br>
 <img src="README_images/vm_power_settings.png" alt="VM power settings" />
+
+If the VM is displayed in, e.g., *4k*, one should change the *Scale Factor* in the settings of the VM
+in VirtualBox under *Display* to, e.g., *200%*, for a better performance.
 
 ---
 
