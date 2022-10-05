@@ -77,7 +77,7 @@ since the VM is used as a server, for a better performance:<br><br>
 <img src="README_images/vm_power_settings.png" alt="VM power settings" />
 
 If the VM is displayed in, e.g., *4k*, one should change the *Scale Factor* in the settings of the VM
-in VirtualBox under *Display* to, e.g., *200%*, for a better performance.
+in VirtualBox under *Display* to, e.g., *200%*, for a better performance, too.
 
 ---
 
