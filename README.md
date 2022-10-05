@@ -1,7 +1,10 @@
 # moodle_opencast_ubuntu_vm
-This repository contains information about setting up an Ubuntu-VM for Moodle development with Opencast
-as well as helper script, to make this process straightforward. In the following guide VirtualBox is used
+This repository contains information about setting up an Ubuntu-VM for Moodle development without or with Opencast
+as well as helper script, to make this process straightforward. In the following guide, VirtualBox is used
 as virtualization software.
+
+**Note - Under Construction**<br>
+This guide contains only the setup of the Ubuntu-VM so far. Other parts will follow as soon as possible.
 
 ## Create the Ubuntu-VM with VirtualBox
 To create an Ubuntu-VM with VirtualBox, do the following steps:
@@ -151,7 +154,7 @@ the world outside the host since they are not connected to a physical networking
 ---
 
 ## Cloning the VM
-When you have done all the previous steps, you should have a working Ubuntu VM (with a mapped/shared folder), that is accessible
+When you have done all the previous steps, you should have a working Ubuntu-VM (with a mapped/shared folder), that is accessible
 from the host via network. This VM will be a kind of *basic* VM, that is used for every installation of Moodle or Opencast in this guide.
 For it, a *Full Clone* of this VM will always be created. A *Full Clone* of a VM in VirtualBox is an
 exact copy of the original VM. To create a *Full Clone* of a VM with VirtualBox, do the following steps:
@@ -160,5 +163,23 @@ exact copy of the original VM. To create a *Full Clone* of a VM with VirtualBox,
    *MAC Address Policy* and check *Keep Disk Names* as well as *Keep Hardware UUIDs* for *Additional Options*.
 3. Click on *Continue*.
 4. Select *Full Clone* and click on *Clone*.
+
+---
+
+## License
+Copyright (C) 2022 Matthias Kollenbroich
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see https://www.gnu.org/licenses/.
 
 
