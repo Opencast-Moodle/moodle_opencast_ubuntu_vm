@@ -6,6 +6,21 @@ as virtualization software.
 **Note - Under Construction**<br>
 This guide contains only the setup of the Ubuntu-VM so far. Other parts will follow as soon as possible.
 
+---
+
+## License
+Copyright (C) 2022 Matthias Kollenbroich.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+
+You should have received a copy of the GNU Free Documentation License
+along with this document. If not, see https://www.gnu.org/licenses/.
+
+---
+
 ## Create the Ubuntu-VM with VirtualBox
 To create an Ubuntu-VM with VirtualBox, do the following steps:
 1. Download (from *https://www.virtualbox.org*) and install VirtualBox.
@@ -164,22 +179,5 @@ exact copy of the original VM. To create a *Full Clone* of a VM with VirtualBox,
 3. Click on *Continue*.
 4. Select *Full Clone* and click on *Clone*.
 
----
-
-## License
-Copyright (C) 2022 Matthias Kollenbroich
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see https://www.gnu.org/licenses/.
 
 
