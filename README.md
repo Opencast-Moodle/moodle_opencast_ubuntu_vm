@@ -145,13 +145,13 @@ Furthermore, a physical networking interface need not be present, and the virtua
 the world outside the host since they are not connected to a physical networking interface.*
 
 1. At first, crate a *Host-Only Network* by doing the following steps:
-   1. In VirtualBox, select *File -> Host Network Manager...* and click on *Create*. The name should be *vboxnet0*.
+   1. In VirtualBox, select *File -> Host Network Manager...* and click on *Create*.
    2. Click on *Properties* with this new entry selected.
    3. In the *Adapter* tab, select *Configure Adapter Manually* and use the following settings:<br><br>
       *IPv4 Address: 192.168.56.1<br>
       IPv4 Network Mask: 255.255.255.0<br>
-      IPv6 Address: (leaf it empty)<br>
-      IPv6 Prefix Length: 0*<br><br>
+      IPv6 Address: leaf the field empty or as the default, if the field is not editable<br>
+      IPv6 Prefix Length: 0 or as the default, if the field is not editable*<br><br>
       In the *DHCP Server* tab, make sure, that the *Enable Server* box is checked, and use the following settings:<br><br>
       *Server Address: 192.168.56.100<br>
       Server Mask: 255.255.255.0<br>
@@ -162,7 +162,7 @@ the world outside the host since they are not connected to a physical networking
    2. Under the *Adapter 2* tab, enter the following settings and accept them afterwards:<br><br>
       *Enable Network Adapter: Checked<br>
       Attached to: Host-only Adapter<br>
-      Name: vboxnet0* (note, that this should be the name of the network, you created in the previous step)<br><br>
+      Name: the name of the network, you created in the previous step, e.g., vboxnet0*<br><br>
 3. You should check, whether the *Host-Only Network* is available (the VM should be running), e.g., with 
    the following command, executed on the host:
    ```
