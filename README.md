@@ -1,6 +1,6 @@
 # moodle_opencast_ubuntu_vm
 This repository contains information about setting up an Ubuntu-VM for Moodle development without or with Opencast
-as well as helper scripts, to make this process straightforward. In the following guide, VirtualBox is used
+as well as helper scripts, to make this process straightforward. In the following guide, VirtualBox 6.1 is used
 as virtualization software.
 
 **Note - Under construction**<br>

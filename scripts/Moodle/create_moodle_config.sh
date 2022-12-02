@@ -23,9 +23,10 @@
 # Note, that this script must be executed as superuser with:
 #   sudo sh create_moodle_config.sh <name> <repository> <password>
 #
-# name:         The name of the Moodle installation.
-# repository:   The name of the repository for the Moodle installation.
-# password:     The password of the Moodle user for the database.
+# name:           The name of the Moodle installation.
+# repository:     The name of the repository for the Moodle installation.
+# password:       The password of the Moodle user for the database.
+# opencast_port:  The port, at which Opencast is reachable.
 #
 # Note, that the database with the name <name> and the Moodle user
 # <name>_user for the database as well as the Moodle data directory
@@ -34,7 +35,10 @@
 # /var/www/html/<name>/<repository>
 #
 # Furthermore, the file setup_config.php is used as template for the
-# final config file.
+# final config file and the file additional_config.php may be added to the
+# directory of the final config.php, to expand it.
+# additional_config.php is required in the final config.php, if it
+# exists in this directory.
 
 set -e
 
@@ -45,6 +49,7 @@ setupdir="$(dirname "${0}")"
 name="${1}"
 repository="${2}"
 password="${3}"
+opencast_port="${4}"
 moodleroot="/var/www/html/${name}/${repository}"
 configfile="config.php"
 
@@ -54,6 +59,7 @@ cd "${moodleroot}"
 sed -i "s/<name>/${name}/" "${configfile}"
 sed -i "s/<repository>/${repository}/" "${configfile}"
 sed -i "s/<password>/${password}/" "${configfile}"
+sed -i "s/<opencast_port>/${opencast_port}/" "${configfile}"
 
 echo "Successfully created Moodle config for the Moodle root directory ${moodleroot}."
 echo ""

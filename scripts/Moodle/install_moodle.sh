@@ -22,12 +22,18 @@
 #
 # Note, that this script must be executed as superuser with:
 #   sudo sh install_moodle.sh <name> <repository> <password> <php_version>
+#     <admin_password> <opencast_port> <force_yes>
 #
 # name:             The name of the Moodle installation.
 # repository:       The name of the repository for the Moodle installation.
 # password:         The password of the Moodle user for the database.
 # php_version:      The version of PHP, that is used for the installation (e.g., 7.4).
 # admin_password:   The password of the admin account with the name admin of the Moodle installation.
+# opencast_port:    The port, at which Opencast is reachable.
+# force_yes:        Optional parameter, that can be passed.
+#                   If force_yes is passed for this parameter, the script will be executed without
+#                   a confirmation by the user.
+#                   If another value is passed for this parameter, this parameter is ignored.
 #
 # Note, that the source of the Moodle version must be included in the directory and
 # that this Moodle version is installed:
@@ -50,26 +56,32 @@ repository="${2}"
 password="${3}"
 phpversion="${4}"
 adminpassword="${5}"
+opencast_port="${6}"
+force_yes="${7:-ignore}"
 moodleroot="/var/www/html/${name}/${repository}"
 
 echo "The Moodle version with the name ${name} will be installed."
 echo ""
-read -p "Enter 'yes' to proceed or another text to abort:" userdecision
-echo ""
 
-if [ -z $userdecision ] || [ $userdecision != "yes" ]
+if [ $force_yes != "force_yes" ]
 then
-    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    echo " ==> Aborted install of Moodle."
-    echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    exit 0
+  read -p "Enter 'yes' to proceed or another text to abort:" userdecision
+  echo ""
+
+  if [ -z $userdecision ] || [ $userdecision != "yes" ]
+  then
+      echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+      echo " ==> Aborted install of Moodle."
+      echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+      exit 0
+  fi
 fi
 
 sh "${setupdir}/stop_webserver.sh"
 
 sh "${setupdir}/create_moodle_data_directory.sh" "${name}"
 sh "${setupdir}/create_moodle_database.sh" "${name}" "${password}"
-sh "${setupdir}/create_moodle_config.sh" "${name}" "${repository}" "${password}"
+sh "${setupdir}/create_moodle_config.sh" "${name}" "${repository}" "${password}" ${opencast_port}
 sh "${setupdir}/run_moodle_installer.sh" "${name}" "${repository}" "${phpversion}" "${adminpassword}"
 
 sh "${setupdir}/start_webserver.sh"

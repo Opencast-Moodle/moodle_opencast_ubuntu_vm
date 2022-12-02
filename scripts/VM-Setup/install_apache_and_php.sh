@@ -86,6 +86,9 @@ adduser www-data vboxsf
 
 systemctl restart apache2
 
+# Set the link after setting up Apache with PHP, to avoid errors with Apache:
+update-alternatives --set php /usr/bin/php${php_version}
+
 echo ""
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo ""
