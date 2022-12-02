@@ -24,7 +24,8 @@ $tool_opencast_admin_settings = array(
     'apiusername_1'         => '<apiusername>',
     'apipassword_1'         => '<apipassword>',
     'lticonsumerkey_1'      => '<lticonsumerkey>',
-    'lticonsumersecret_1'   => '<lticonsumersecret>'
+    'lticonsumersecret_1'   => '<lticonsumersecret>',
+    'apitimeout_1'          => '0'  // Disable the timeout, to avoid issues with the known timeout bug (TODO: remove after its fix)
 );
 
 // ###################################################################################

@@ -19,7 +19,16 @@
 ######################################################################################
 #
 # Note, that this script must be executed from the scripts directory as superuser with:
-#   sudo sh setup_moodle_system_with_opencast.sh
+#   sudo sh setup_moodle_system_with_opencast.sh <php_version>
+# <java_version> <opencast_version>
+# <moodle_version>
+#
+# php_version:      The version of PHP, that is used for the installation (e.g., 7.4).
+# java_version:     The java version to install (e.g., 11).
+#                   Note, that the installation of Java is required for Opencast
+#                   and that for Opencast 10 and newer JDK 11 is supported only (state on 28.07.22).
+# opencast_version: The stable Opencast major version to install (e.g., 11 (see https://opencast.org/category/releases/)).
+# moodle_version:   The version of the Moodle stable branch (e.g., 400 for Moodle 4.0).
 #
 # This script set ups the system, installs Moodle and Opencast as well as configures them.
 # This process includes the installation and configuration of the Opencast Moodle Plugins.
@@ -33,12 +42,12 @@ set -e
 ######################################################################################
 # Configuration variables:
 
-php_version=7.4
+php_version=${1}
 
-java_version=11
-opencast_version=11
+java_version=${2}
+opencast_version=${3}
 
-moodle_version=400
+moodle_version=${4}
 
 # Configuration variables - END
 ######################################################################################
@@ -69,6 +78,8 @@ moodle_repository_name=moodle
 
 moodle_database_user_password="moodle-pass"
 moodle_admin_account_password="Admin12#34"
+
+moodle_url="https://192.168.56.101/${moodle_installation_name}/${moodle_repository_name}"
 
 opencast_protocol=http
 opencast_ip=192.168.56.101
@@ -147,11 +158,6 @@ sh Opencast/disable_static_file_server_authorization_check_opencast.sh
 sh Opencast/integrate_lti_opencast.sh ${opencast_lti_consumer_name} ${opencast_lti_consumer_key} \
   ${opencast_lti_consumer_secret}
 
-sh Opencast/create_user_opencast.sh ${opencast_api_url} \
-  ${opencast_system_account_name} ${opencast_system_account_password} \
-  ${opencast_api_user_name} ${opencast_api_user_password} \
-  ${opencast_api_user_name} "${opencast_api_user_name}@localhost" "${opencast_api_user_roles}"
-
 ######################################################################################
 
 # Set up Moodle:
@@ -171,6 +177,62 @@ sh Opencast/add_cron_job.sh ${php_version} "${moodle_install_dir}/${moodle_insta
 
 ######################################################################################
 
+# Note, that the API user for Opencast must be created after some time after the setup of Opencast
+# and therefore, it is created here. Otherwise, Opencast is in an inconsistent state.
+# It seems to be, that Opencast must be initialized completely, before a user is created.
+sh Opencast/create_user_opencast.sh ${opencast_api_url} \
+  ${opencast_system_account_name} ${opencast_system_account_password} \
+  ${opencast_api_user_name} ${opencast_api_user_password} \
+  ${opencast_api_user_name} "${opencast_api_user_name}@localhost" "${opencast_api_user_roles}"
+
+######################################################################################
+
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo " ==> Successfully set up system, installed Moodle and Opencast as well as configured them."
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo ""
+echo "The setup has the following summarized properties: ++++++++++++++++++++++++++++"
+echo ""
+echo "PHP version:"
+echo " --> ${php_version}"
+echo "Java version:"
+echo " --> ${java_version}"
+echo ""
+echo "Opencast major version (stable):"
+echo " --> ${opencast_version}"
+echo "Opencast is reachable at:"
+echo " --> ${opencast_api_url}"
+echo "Opencast admin user name (default):"
+echo " --> admin"
+echo "Opencast admin user password (default):"
+echo " --> opencast"
+echo "Opencast system user name (default):"
+echo " --> ${opencast_system_account_name}"
+echo "Opencast system user password (default):"
+echo " --> ${opencast_system_account_password}"
+echo "Opencast API user name:"
+echo " --> ${opencast_api_user_name}"
+echo "Opencast API user password:"
+echo " --> ${opencast_api_user_password}"
+echo ""
+echo "Moodle version (stable):"
+echo " --> ${moodle_version}"
+echo "Moodle is reachable at:"
+echo " --> ${moodle_url}"
+echo "Moodle installation directory:"
+echo " --> ${moodle_install_dir}/${moodle_installation_name}/${moodle_repository_name}"
+echo "Moodle database user password:"
+echo " --> ${moodle_database_user_password}"
+echo "Moodle admin user name (default):"
+echo " --> admin"
+echo "Moodle admin user password:"
+echo " --> ${moodle_admin_account_password}"
+echo ""
+echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo ""
+echo "Note, that Moodle and Opencast are both reachable at the URLs listed above
+on the VM and on the host, now, as well as after every start of the VM."
+echo ""
+echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+
+######################################################################################
