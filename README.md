@@ -44,7 +44,7 @@ To create an Ubuntu-VM with VirtualBox, do the following steps:
       1. Select *Dynamically allocated*.
    6. File location and size:
       1. Choose a path for the virtual hard disk file (default is okay). 
-      2. Choose a size for the virtual hard disk.
+      2. Choose a size for the virtual hard disk (should be at least *32 GB*).
 4. Install the Ubuntu image:
    1. Launch the newly created virtual machine.
    2. Select the downloaded Ubuntu image (*iso* file).
@@ -182,5 +182,31 @@ exact copy of the original VM. To create a *Full Clone* of a VM with VirtualBox,
 3. Click on *Continue*.
 4. Select *Full Clone* and click on *Clone*.
 
+---
 
+## Installing Moodle and Opencast
+For the previously created *basic* VM or for a clone of it, you can install Moodle and Opencast as well as configure them
+directly by running the script *scripts/setup_moodle_system_with_opencast.sh* as superuser on the VM.
+Running this script includes the installation and configuration of the Opencast Moodle Plugins via their default branches
+and Moodle will be installed at */var/www/html* on the VM afterwards.<br>
+<br>
+This script has the following parameters, to choose a PHP, Java, Moodle and Opencast version:
+1. `php_version`:<br>
+The version of PHP, that is used for the installation (e.g., 7.4).
+2. `java_version`:<br>
+The java version to install (e.g., 11). Note, that the installation of Java is required for Opencast
+and that for Opencast 10 and newer JDK 11 is supported only (state on 28.07.22).
+3. `opencast_version`:<br>
+The stable Opencast major version to install (e.g., 11 (see https://opencast.org/category/releases/)).
+4. `moodle_version`:<br>
+The version of the Moodle stable branch (e.g., 400 for Moodle 4.0).
 
+Note, that a summarized list of properties of this setup is given at the end of a successful execution
+of this script.
+
+The directory *scripts* contains additional helper scripts without parameters, which must be run as superuser on the VM,
+that define the parameters for the script *scripts/setup_moodle_system_with_opencast.sh* and run it with
+those defined parameters:
+1. *setup_moodle_400_system_with_opencast_11.sh*:<br>
+Installs *Moodle 4.0* and *Opencast 11* as well as configures them. For this process, *PHP 7.4* and *Java 11*
+is installed and used.

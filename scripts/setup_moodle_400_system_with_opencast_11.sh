@@ -18,7 +18,7 @@
 #
 ######################################################################################
 #
-# Note, that this script must be executed from the scripts directory as superuser with:
+# Note, that this script must be executed as superuser with:
 #   sudo sh setup_moodle_400_system_with_opencast_11.sh
 
 set -e
@@ -34,6 +34,11 @@ opencast_version=11
 moodle_version=400
 
 # Configuration variables - END
+######################################################################################
+
+scripts_dir="$(dirname "${0}")"
+cd "${scripts_dir}"
+
 ######################################################################################
 
 sh setup_moodle_system_with_opencast.sh ${php_version} \

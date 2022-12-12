@@ -18,7 +18,7 @@
 #
 ######################################################################################
 #
-# Note, that this script must be executed from the scripts directory as superuser with:
+# Note, that this script must be executed as superuser with:
 #   sudo sh setup_moodle_system_with_opencast.sh <php_version>
 # <java_version> <opencast_version>
 # <moodle_version>
@@ -141,6 +141,11 @@ opencast_lti_consumer_secret=moodle_user_consumer_secret
 opencast_api_url="${opencast_protocol}://${opencast_ip}:${opencast_port}"
 
 # Helper variables - END
+######################################################################################
+
+scripts_dir="$(dirname "${0}")"
+cd "${scripts_dir}"
+
 ######################################################################################
 
 # Set up system:
