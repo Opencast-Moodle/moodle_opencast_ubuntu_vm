@@ -119,7 +119,7 @@ To do so, do the following steps:
    6. Shutdown the VM.
    7. Navigate to *Settings -> Shared Folders* for the VM in VirtualBox.
    8. Add a new shared folder by right-clicking on the list of shared folders.
-   9. Select the folder on the host system, that should be shared/mapped, set it to *read-only* as well as to *permanent*,
+   9. Select the folder on the host system, that should be shared/mapped, set it not to *read-only* as well as to *permanent*,
       enable *automatic mounting*, leave the folder name as default (*.*) and enter the path */var/www/html* as mount point 
       (the selected folder from the host system will appear now as the folder */var/www/html* on the VM automatically;
       note, that the shared folder on the host system will contain the Moodle versions for the VM in this guide).
