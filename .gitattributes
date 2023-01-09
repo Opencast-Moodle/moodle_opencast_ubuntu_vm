@@ -1,5 +1,7 @@
 # Set the default behavior:
 * text=auto
 
-# Define the line endings for the scripts:
+# Define the line endings for the scripts and their additional files:
 *.sh text eol=lf
+*.php text eol=lf
+*.conf text eol=lf
