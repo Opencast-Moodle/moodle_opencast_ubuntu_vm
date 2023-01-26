@@ -34,6 +34,7 @@
 # and
 #   /etc/opencast/org.opencastproject.security.lti.LtiLaunchAuthenticationHandler.cfg
 # are in their default configuration.
+# Furthermore, Elasticsearch and Opencast should not be running, when you execute this script.
 
 set -e
 
@@ -49,9 +50,6 @@ echo ""
 
 # Stop services:
 ######################################################################################
-systemctl stop opencast.service
-systemctl stop elasticsearch.service
-systemctl stop activemq.service
 systemctl stop apache2
 ######################################################################################
 
@@ -106,9 +104,6 @@ sed -i "s/${default_config_line_roles}/${config_line_roles}/" "${default_config_
 # Start services:
 ######################################################################################
 systemctl start apache2
-systemctl start activemq.service
-systemctl start elasticsearch.service
-systemctl start opencast.service
 ######################################################################################
 
 echo ""

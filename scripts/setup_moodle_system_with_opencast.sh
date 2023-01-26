@@ -23,12 +23,17 @@
 # <java_version> <opencast_version>
 # <moodle_version>
 #
-# php_version:      The version of PHP, that is used for the installation (e.g., 7.4).
-# java_version:     The java version to install (e.g., 11).
-#                   Note, that the installation of Java is required for Opencast
-#                   and that for Opencast 10 and newer JDK 11 is supported only (state on 28.07.22).
-# opencast_version: The stable Opencast major version to install (e.g., 11 (see https://opencast.org/category/releases/)).
-# moodle_version:   The version of the Moodle stable branch (e.g., 400 for Moodle 4.0).
+# php_version:                    The version of PHP, that is used for the installation (e.g., 7.4).
+# java_version:                   The java version to install (e.g., 11).
+#                                 Note, that the installation of Java is required for Opencast
+#                                 and that for Opencast 13 and newer JDK 11 is supported only (state on 01/24/2023).
+# opencast_version:               The stable Opencast major version to install (e.g., 13 (see https://opencast.org/category/releases/)).
+#                                 Note, that the passed version must be at least 13.
+# moodle_version:                 The version of the Moodle stable branch (e.g., 400 for Moodle 4.0).
+# branch_moodle_plugins_opencast: Optional parameter, that may be passed.
+#                                 If this parameter is passed, the branches of the Opencast Moodle Plugins are changed
+#                                 to this passed parameter immediately after cloning them.
+#                                 Otherwise, the default branches of the Opencast Moodle Plugins are used.
 #
 # This script set ups the system, installs Moodle and Opencast as well as configures them.
 # This process includes the installation and configuration of the Opencast Moodle Plugins.
@@ -48,6 +53,8 @@ java_version=${2}
 opencast_version=${3}
 
 moodle_version=${4}
+
+branch_moodle_plugins_opencast="${5}"
 
 # Configuration variables - END
 ######################################################################################
@@ -163,6 +170,17 @@ sh Opencast/disable_static_file_server_authorization_check_opencast.sh
 sh Opencast/integrate_lti_opencast.sh ${opencast_lti_consumer_name} ${opencast_lti_consumer_key} \
   ${opencast_lti_consumer_secret}
 
+# Start Opencast services:
+systemctl start elasticsearch.service
+systemctl start opencast.service
+
+######################################################################################
+
+sh Opencast/create_user_opencast.sh ${opencast_api_url} \
+  ${opencast_system_account_name} ${opencast_system_account_password} \
+  ${opencast_api_user_name} ${opencast_api_user_password} \
+  ${opencast_api_user_name} "${opencast_api_user_name}@localhost" "${opencast_api_user_roles}"
+
 ######################################################################################
 
 # Set up Moodle:
@@ -175,20 +193,16 @@ sh Moodle/create_moodle_additional_config.sh ${moodle_installation_name} ${moodl
 
 sh Opencast/install_moodle_plugins_opencast.sh "${moodle_install_dir}/${moodle_installation_name}/${moodle_repository_name}"
 
+if [ -n "$branch_moodle_plugins_opencast" ]
+then
+  sh Opencast/change_branch_moodle_plugins_opencast.sh "${moodle_install_dir}/${moodle_installation_name}/${moodle_repository_name}" \
+    "${branch_moodle_plugins_opencast}"
+fi
+
 sh Moodle/install_moodle.sh ${moodle_installation_name} ${moodle_repository_name} ${moodle_database_user_password} \
   ${php_version} ${moodle_admin_account_password} ${opencast_port} force_yes
 
 sh Opencast/add_cron_job.sh ${php_version} "${moodle_install_dir}/${moodle_installation_name}/${moodle_repository_name}"
-
-######################################################################################
-
-# Note, that the API user for Opencast must be created after some time after the setup of Opencast
-# and therefore, it is created here. Otherwise, Opencast is in an inconsistent state.
-# It seems to be, that Opencast must be initialized completely, before a user is created.
-sh Opencast/create_user_opencast.sh ${opencast_api_url} \
-  ${opencast_system_account_name} ${opencast_system_account_password} \
-  ${opencast_api_user_name} ${opencast_api_user_password} \
-  ${opencast_api_user_name} "${opencast_api_user_name}@localhost" "${opencast_api_user_roles}"
 
 ######################################################################################
 

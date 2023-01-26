@@ -22,7 +22,8 @@
 #   sudo sh setup_opencast.sh <java_version> <opencast_version> <force_yes>
 #
 # java_version:     The java version to install (e.g., 11). Note, that for Opencast 10 and newer JDK 11 is supported only (state on 28.07.22).
-# opencast_version: The stable Opencast major version to install (e.g., 11 (see https://opencast.org/category/releases/)).
+# opencast_version: The stable Opencast major version to install (e.g., 13 (see https://opencast.org/category/releases/)).
+#                   Note, that the passed version must be at least 13.
 # force_yes:        Optional parameter, that can be passed.
 #                   If force_yes is passed for this parameter, the script will be executed without
 #                   a confirmation by the user.

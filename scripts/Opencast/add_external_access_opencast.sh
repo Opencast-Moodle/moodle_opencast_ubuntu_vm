@@ -31,6 +31,7 @@
 # Note, that this script should be executed only, if Apache is in its default configuration
 # as well as org.opencastproject.server.url has its default value in /etc/opencast/custom.properties
 # and if the passed port is not in use (e.g., use 8081 as port for http and use 8443 as port for https).
+# Furthermore, Elasticsearch and Opencast should not be running, when you execute this script.
 
 set -e
 
@@ -54,9 +55,6 @@ echo ""
 
 # Stop services:
 ######################################################################################
-systemctl stop opencast.service
-systemctl stop elasticsearch.service
-systemctl stop activemq.service
 systemctl stop apache2
 ######################################################################################
 
@@ -113,9 +111,6 @@ sed -i "s/${default_server_url}/${new_server_url}/" "${properties_file}"
 # Start services:
 ######################################################################################
 systemctl start apache2
-systemctl start activemq.service
-systemctl start elasticsearch.service
-systemctl start opencast.service
 ######################################################################################
 
 echo ""

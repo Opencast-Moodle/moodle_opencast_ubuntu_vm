@@ -1,7 +1,7 @@
 #!/bin/bash
 ######################################################################################
 #
-# Copyright (C) 2022 Matthias Kollenbroich
+# Copyright (C) 2023 Matthias Kollenbroich
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 ######################################################################################
 #
 # Note, that this script must be executed as superuser with:
-#   sudo sh setup_moodle_400_system_with_opencast_11.sh
+#   sudo sh setup_moodle_400_system_with_opencast_13_plugins_release_400.sh
 
 set -e
 
@@ -29,9 +29,11 @@ set -e
 php_version=7.4
 
 java_version=11
-opencast_version=11
+opencast_version=13
 
 moodle_version=400
+
+branch_moodle_plugins_opencast="Release_v4.0"
 
 # Configuration variables - END
 ######################################################################################
@@ -43,6 +45,7 @@ cd "${scripts_dir}"
 
 sh setup_moodle_system_with_opencast.sh ${php_version} \
   ${java_version} ${opencast_version} \
-  ${moodle_version}
+  ${moodle_version} \
+  ${branch_moodle_plugins_opencast}
 
 ######################################################################################

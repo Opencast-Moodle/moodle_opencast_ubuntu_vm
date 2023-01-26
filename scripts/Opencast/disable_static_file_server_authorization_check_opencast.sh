@@ -27,6 +27,7 @@
 # You should run this script only, if the file
 #   /etc/opencast/org.opencastproject.fsresources.StaticResourceServlet.cfg
 # is in its default configuration.
+# Furthermore, Elasticsearch and Opencast should not be running, when you execute this script.
 
 set -e
 
@@ -37,9 +38,6 @@ echo ""
 
 # Stop services:
 ######################################################################################
-systemctl stop opencast.service
-systemctl stop elasticsearch.service
-systemctl stop activemq.service
 systemctl stop apache2
 ######################################################################################
 
@@ -58,9 +56,6 @@ sed -i "s/${default_config_line}/${config_line}/" "${servlet_config_file}"
 # Start services:
 ######################################################################################
 systemctl start apache2
-systemctl start activemq.service
-systemctl start elasticsearch.service
-systemctl start opencast.service
 ######################################################################################
 
 echo ""
