@@ -176,13 +176,6 @@ systemctl start opencast.service
 
 ######################################################################################
 
-sh Opencast/create_user_opencast.sh ${opencast_api_url} \
-  ${opencast_system_account_name} ${opencast_system_account_password} \
-  ${opencast_api_user_name} ${opencast_api_user_password} \
-  ${opencast_api_user_name} "${opencast_api_user_name}@localhost" "${opencast_api_user_roles}"
-
-######################################################################################
-
 # Set up Moodle:
 mkdir -p "${moodle_install_dir}/${moodle_installation_name}"
 sh Moodle/clone_moodle.sh "${moodle_install_dir}/${moodle_installation_name}" ${moodle_version}
@@ -203,6 +196,15 @@ sh Moodle/install_moodle.sh ${moodle_installation_name} ${moodle_repository_name
   ${php_version} ${moodle_admin_account_password} ${opencast_port} force_yes
 
 sh Opencast/add_cron_job.sh ${php_version} "${moodle_install_dir}/${moodle_installation_name}/${moodle_repository_name}"
+
+######################################################################################
+
+# Note, that the API user for Opencast should be created after some time after the setup of Opencast
+# and therefore, it is created here, to guarantee, that Opencast is running.
+sh Opencast/create_user_opencast.sh ${opencast_api_url} \
+  ${opencast_system_account_name} ${opencast_system_account_password} \
+  ${opencast_api_user_name} ${opencast_api_user_password} \
+  ${opencast_api_user_name} "${opencast_api_user_name}@localhost" "${opencast_api_user_roles}"
 
 ######################################################################################
 

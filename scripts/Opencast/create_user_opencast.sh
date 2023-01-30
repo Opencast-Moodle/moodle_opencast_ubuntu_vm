@@ -61,7 +61,7 @@ set +e
 curl_success=0
 loop_counter=0
 sleep_time=5
-retries_count=10
+retries_count=64
 while [ $loop_counter -le $retries_count ]
 do
   if [ $loop_counter -gt 0 ]; then
