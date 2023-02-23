@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ######################################################################################
 #
 # Copyright (C) 2022 Matthias Kollenbroich
@@ -26,7 +26,7 @@
 #
 # This script installs Opencast and configures the services elasticsearch and opencast to be started
 # automatically after booting.
-# See https://docs.opencast.org/r/11.x/admin/#installation/debs/ for further details.
+# See https://docs.opencast.org/r/13.x/admin/#installation/debs/ for further details.
 # Furthermore, Elasticsearch should not be running, when you execute this script.
 
 set -e
