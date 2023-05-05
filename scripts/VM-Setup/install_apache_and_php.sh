@@ -72,9 +72,10 @@ default_php_version=$(php -r "\$version = explode('.', PHP_VERSION); echo \$vers
 a2dismod php${default_php_version}
 a2enmod php${php_version}
 
-# Set max_input_vars in php.ini:
+# Set max_input_vars in both php.ini files:
 max_input_vars_value="5000"
 sed -i "s/;max_input_vars = 1000/max_input_vars = ${max_input_vars_value}/" "/etc/php/${php_version}/apache2/php.ini"
+sed -i "s/;max_input_vars = 1000/max_input_vars = ${max_input_vars_value}/" "/etc/php/${php_version}/cli/php.ini"
 
 a2enmod ssl
 a2ensite default-ssl
