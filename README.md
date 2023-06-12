@@ -214,3 +214,6 @@ those defined parameters:
 1. *setup_moodle_400_system_with_opencast_13_plugins_release_400.sh*:<br>
 Installs *Moodle 4.0* and *Opencast 13* as well as configures them. For this process, *PHP 7.4* and *Java 11*
 are installed as well as used. Furthermore, the branch of the Opencast Moodle Plugins is changed to *Release_v4.0*.
+2. *setup_moodle_401_system_with_opencast_13_plugins_release_401.sh*:<br>
+Installs *Moodle 4.1* and *Opencast 13* as well as configures them. For this process, *PHP 8.1* and *Java 11*
+are installed as well as used. Furthermore, the branch of the Opencast Moodle Plugins is changed to *Release_v4.1*.
