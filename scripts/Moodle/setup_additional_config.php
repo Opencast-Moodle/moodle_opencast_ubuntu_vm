@@ -33,8 +33,7 @@ $tool_opencast_admin_settings = array(
 # Define admin settings for block_opencast.
 $block_opencast_admin_settings = array(
     'enable_opencast_studio_link_1'     => true,
-    'show_opencast_studio_return_btn_1' => true,
-    'series_name_1' => 'Course_Series_[COURSEID]'   // Set the default, to avoid an empty setting after installation (TODO: remove after its fix; see get_default_seriestitle in apibridge.php)
+    'show_opencast_studio_return_btn_1' => true
 );
 
 // ###################################################################################
