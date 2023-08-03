@@ -24,10 +24,12 @@
 # opencast_version: The stable Opencast major version to install (e.g., 13 (see https://opencast.org/category/releases/)).
 #                   Note, that the passed version must be at least 13.
 #
-# This script installs Opencast and configures the services elasticsearch and opencast to be started
+# This script installs Opencast and configures the services elasticsearch or opensearch and opencast to be started
 # automatically after booting.
-# See https://docs.opencast.org/r/13.x/admin/#installation/debs/ for further details.
-# Furthermore, Elasticsearch should not be running, when you execute this script.
+# See for further details:
+# - https://docs.opencast.org/r/13.x/admin/#installation/debs/
+# - https://docs.opencast.org/r/14.x/admin/#installation/debs/
+# Furthermore, Elasticsearch or OpenSearch should not be running, when you execute this script.
 
 set -e
 
@@ -39,16 +41,33 @@ opencast_version="${1}"
 echo "++++ Installing stable Opencast major version ${opencast_version} ++++++++++++++++++++++++++++++"
 echo ""
 
-apt-get -y install opencast-${opencast_version}-allinone elasticsearch-oss ffmpeg-dist
+# Note, that starting with Opencast 14, OpenSearch is now a dependency.
+if [ ${opencast_version} -lt "14" ]; then
+  apt-get -y install opencast-${opencast_version}-allinone elasticsearch-oss ffmpeg-dist
+else
+  apt-get -y install opencast-${opencast_version}-allinone opensearch ffmpeg-dist
+fi
 
-systemctl enable elasticsearch.service
+# Apply invalid zip64 extra data field size fix:
+######################################################################################
+setenv_file="setenv"
+opencast_bin_dir="/usr/share/opencast/bin"
+
+default_config_part="{EXTRA_JAVA_OPTS}"
+config_part="{EXTRA_JAVA_OPTS} -Djdk.util.zip.disableZip64ExtraFieldValidation=true"
+
+cd "${opencast_bin_dir}"
+sed -i "s/${default_config_part}/${config_part}/" "${setenv_file}"
+######################################################################################
+
+systemctl start opencast.service
 systemctl enable opencast.service
 
 echo ""
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo ""
 echo "Successfully installed stable Opencast major version ${opencast_version}."
-echo "Note, that Elasticsearch and Opencast are automatically started after booting."
+echo "Note, that Elasticsearch or OpenSearch and Opencast are automatically started after booting."
 echo ""
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo ""

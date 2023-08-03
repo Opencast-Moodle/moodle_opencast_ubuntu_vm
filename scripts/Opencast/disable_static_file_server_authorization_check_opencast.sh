@@ -27,7 +27,7 @@
 # You should run this script only, if the file
 #   /etc/opencast/org.opencastproject.fsresources.StaticResourceServlet.cfg
 # is in its default configuration.
-# Furthermore, Elasticsearch and Opencast should not be running, when you execute this script.
+# Furthermore, Elasticsearch or OpenSearch and Opencast should not be running, when you execute this script.
 
 set -e
 

@@ -163,6 +163,14 @@ sh VM-Setup/setup_system.sh ${php_version} ${xdebug_client_host_ip} force_yes
 # Set up Opencast:
 sh Opencast/setup_opencast.sh ${java_version} ${opencast_version} force_yes
 
+# Stop the services before configuration:
+systemctl stop opencast.service
+if [ ${opencast_version} -lt "14" ]; then
+  systemctl stop elasticsearch.service
+else
+  systemctl stop opensearch.service
+fi
+
 sh Opencast/add_external_access_opencast.sh ${opencast_protocol} ${opencast_ip} ${opencast_port}
 
 sh Opencast/disable_static_file_server_authorization_check_opencast.sh
@@ -170,8 +178,12 @@ sh Opencast/disable_static_file_server_authorization_check_opencast.sh
 sh Opencast/integrate_lti_opencast.sh ${opencast_lti_consumer_name} ${opencast_lti_consumer_key} \
   ${opencast_lti_consumer_secret}
 
-# Start Opencast services:
-systemctl start elasticsearch.service
+# Start the services again after configuration:
+if [ ${opencast_version} -lt "14" ]; then
+  systemctl start elasticsearch.service
+else
+  systemctl start opensearch.service
+fi
 systemctl start opencast.service
 
 ######################################################################################

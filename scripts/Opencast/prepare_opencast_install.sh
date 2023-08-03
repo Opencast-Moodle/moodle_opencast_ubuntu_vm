@@ -26,7 +26,7 @@
 #                   Note, that the passed version must be at least 13.
 #
 # This script should be executed only once before you install Opencast.
-# It installs a JDK and Elasticsearch as well as activates repositories for Opencast.
+# It installs a JDK and Elasticsearch or OpenSearch as well as activates repositories for Opencast.
 # See https://docs.opencast.org/r/11.x/admin/#installation/debs/ for further details.
 
 set -e
@@ -51,17 +51,30 @@ echo "deb https://pkg.opencast.org/debian ${opencast_version}.x stable" | tee /e
 wget -qO - https://pkg.opencast.org/gpgkeys/opencast-deb.key | apt-key add -
 apt-get -y update
 
-echo ""
-echo "++++ Installing Elasticsearch +++++++++++++++++++++++++++++++++++++++++++++++++"
-echo ""
+# Note, that starting with Opencast 14, OpenSearch is now a dependency.
+if [ ${opencast_version} -lt "14" ]; then
+  echo ""
+  echo "++++ Installing Elasticsearch +++++++++++++++++++++++++++++++++++++++++++++++++"
+  echo ""
 
-apt-get -y install elasticsearch-oss
+  apt-get -y install elasticsearch-oss
 
-systemctl stop elasticsearch.service
-
-cat > /etc/elasticsearch/jvm.options.d/log4shell.options << EOF
+  cat > /etc/elasticsearch/jvm.options.d/log4shell.options << EOF
 -Dlog4j2.formatMsgNoLookups=true
 EOF
+
+  systemctl start elasticsearch
+  systemctl enable elasticsearch
+else
+  echo ""
+  echo "++++ Installing OpenSearch ++++++++++++++++++++++++++++++++++++++++++++++++++++"
+  echo ""
+
+  apt-get -y install opensearch
+
+  systemctl start opensearch
+  systemctl enable opensearch
+fi
 
 echo ""
 echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"

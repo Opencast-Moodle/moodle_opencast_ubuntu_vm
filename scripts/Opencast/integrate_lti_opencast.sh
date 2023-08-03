@@ -34,7 +34,7 @@
 # and
 #   /etc/opencast/org.opencastproject.security.lti.LtiLaunchAuthenticationHandler.cfg
 # are in their default configuration.
-# Furthermore, Elasticsearch and Opencast should not be running, when you execute this script.
+# Furthermore, Elasticsearch or OpenSearch and Opencast should not be running, when you execute this script.
 
 set -e
 

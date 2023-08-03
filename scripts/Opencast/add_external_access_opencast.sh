@@ -31,7 +31,7 @@
 # Note, that this script should be executed only, if Apache is in its default configuration
 # as well as org.opencastproject.server.url has its default value in /etc/opencast/custom.properties
 # and if the passed port is not in use (e.g., use 8081 as port for http and use 8443 as port for https).
-# Furthermore, Elasticsearch and Opencast should not be running, when you execute this script.
+# Furthermore, Elasticsearch or OpenSearch and Opencast should not be running, when you execute this script.
 
 set -e
 
